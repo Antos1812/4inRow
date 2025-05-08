@@ -62,7 +62,45 @@ class TicTacToe {
   }
 }
 
-let game = new TicTacToe();
+const boardELement = document.getElementById("board");
+const statusElement = document.getElementById('status');
+const game = new TicTacToe();
+
+function renderBoard() {
+  boardElement.innerHTML = "";
+  game.board().forEach((value, index) => {
+    const cell = document.createElement('div');
+    cell.textContent = value;
+    cell.style.width = '100px';
+    cell.style.height = '100px';
+    cell.style.display = 'flex';
+    cell.style.alignItems = 'center';
+    cell.style.justifyContent = 'center';
+    cell.style.border = '1px solid black';
+    cell.style.fontSize = '24px';
+    cell.addEventListener('click', () => handleClick(index));
+    boardElement.appendChild(cell);
+  });
+}
+
+function handleClick(index) {
+  try {
+    if (game.checkWinner()) return;
+
+    game.place(index);
+    renderBoard();
+
+    const winner = game.checkWinner();
+    if (winner) {
+      statusElement.textContent = winner === "Draw" ? "Remis!" : `Wygrał ${winner}!`;
+    }
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+renderBoard();
+
 
 console.assert(
   game.board().every((value) => value === " "),
