@@ -71,6 +71,17 @@ class ConnectFour {
 
     return null; // Gra trwa
   }
+  printBoard() {
+    let output = "";
+    for (let row = 0; row < this.#rows; row++) {
+      for (let col = 0; col < this.#cols; col++) {
+        output += `[${this.#board[row][col]}]`;
+      }
+      output += "\n";
+    }
+    console.log(output);
+  }
+  
 }
 
 // Inicjalizacja HTML
@@ -173,4 +184,6 @@ console.assert(
   testGame.checkWinner() === "Draw",
   "Poprawne wykrycie remisu"
 );
+game.printBoard();
+
 
